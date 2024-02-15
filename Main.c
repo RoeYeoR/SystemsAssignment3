@@ -37,7 +37,7 @@ void insertStrings(StrList** list) {
 
     char* token = strtok(buffer, " ");
     while (token != NULL) {
-        StrList_insertLast(list, token);
+        StrList_insertLast(&list, token);
         token = strtok(NULL, " ");
     }
 }
