@@ -29,17 +29,38 @@ void insertStrings(StrList* list) {
     //printf("Enter the number of words to insert: ");
     scanf("%d", &numWords);
 
-    char buffer[100]; // Assuming maximum word length is 99 characters
-    fgets(buffer, sizeof(buffer), stdin); // Clear input buffer
+    // Clear input buffer
+    while (getchar() != '\n');
 
     //printf("Enter the words separated by space:\n");
-    fgets(buffer, sizeof(buffer), stdin);
+    char* buffer = malloc(sizeof(char) * 100); // Initial buffer size
+    fgets(buffer, 100, stdin);
+
+    size_t buffer_size = 100;
+    size_t buffer_length = strlen(buffer);
+    char* new_buffer;
+
+    while (buffer[buffer_length - 1] != '\n') {
+        buffer_size *= 2; // Double the buffer size
+        new_buffer = realloc(buffer, buffer_size * sizeof(char));
+        if (new_buffer == NULL) {
+            // Handle memory allocation failure
+            fprintf(stderr, "Memory allocation failed\n");
+            free(buffer);
+            return;
+        }
+        buffer = new_buffer;
+        fgets(buffer + buffer_length, buffer_size - buffer_length, stdin);
+        buffer_length = strlen(buffer);
+    }
 
     char* token = strtok(buffer, " ");
     while (token != NULL) {
         StrList_insertLast(list, token);
         token = strtok(NULL, " ");
     }
+
+    free(buffer); // Free dynamically allocated memory
 }
 
 int main() {
