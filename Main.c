@@ -22,7 +22,7 @@ int main() {
                 for (int i = 0; i < numWords; i++) {
                     fgets(word, sizeof(word), stdin);
                     word[strcspn(word, "\n")] = 0; // remove newline character
-                    StrList_insertLast(list, word);
+                    StrList_insertLast(&list, word);
                 }
                 break;
             }
@@ -32,7 +32,7 @@ int main() {
                 index = atoi(token);
                 fgets(word, sizeof(word), stdin);
                 word[strcspn(word, "\n")] = 0; // remove newline character
-                StrList_insertAt(list, word, index);
+                StrList_insertAt(&list, word, index);
                 break;
             }
         case 3:
@@ -59,17 +59,17 @@ int main() {
         case 8:
             fgets(word, sizeof(word), stdin);
             word[strcspn(word, "\n")] = 0; // remove newline character
-            StrList_remove(list, word);
+            StrList_remove(&list, word);
             break;
         case 9:
             {
                 token = strtok(NULL, " \n");
                 index = atoi(token);
-                StrList_removeAt(list, index);
+                StrList_removeAt(&list, index);
                 break;
             }
         case 10:
-            StrList_reverse(list);
+            StrList_reverse(&list);
             break;
         case 11:
             StrList_free(list);
