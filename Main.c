@@ -15,7 +15,7 @@ int main() {
     do
     {
         fgets(input, sizeof(input), stdin);
-        token = strtok(input, " \n");
+        token = strtok(input, "\n");
         option = atoi(token);
 
     switch(option)
@@ -23,28 +23,44 @@ int main() {
         case 1:
             {
             fgets(input, sizeof(input), stdin);
-            int numWords = atoi(input);
+            token = strtok(input,"\n");
+            int numWords = atoi(token);
 
-            for (int i = 0; i < numWords; i++)
+            fgets(input,sizeof(input),stdin);
+            token = strtok(input," \t\n,.\"");
+            while(token != NULL)
             {
-            word = (char*)malloc(100 * sizeof(char)); // Allocate memory for the word
-            fgets(word, 100, stdin); // Read the word dynamically
-            word[strcspn(word, " ")] = 0; // remove newline character
-            StrList_insertLast(list, word); // Insert the word into the list
+                StrList_insertLast(list,token);
+                token = strtok(NULL, " \t\n,.\"");
+
             }
             break;
-            }
+            
+            // for (int i = 0; i < numWords; i++)
+            // {
+            // fgets(token,sizeof(token),stdin);
+            // token = strtok(input," ");
+            // StrList_insertLast(list, token); // Insert the word into the list
+            // token = strtok(NULL," "); 
+            // }
+            // break;
+            // }
         
         case 2:
             {
-               fgets(input, sizeof(input), stdin);
-                index = atoi(input);
+                fgets(input, sizeof(input), stdin);
+                token = strtok(input, "\n");
+                index = atoi(token);
 
-                word = (char*)malloc(100 * sizeof(char)); // Allocate memory for the word
-                fgets(word, 100, stdin); // Read the word dynamically
-                word[strcspn(word, " ")] = 0; // remove newline character
-                StrList_insertAt(list, word, index); // Insert the word into the list at index
+                fgets(input,sizeof(input),stdin);
+                token = strtok(input,"\n");
+                StrList_insertAt(list,token,index);
                 break;
+                // word = (char*)malloc(100 * sizeof(char)); // Allocate memory for the word
+                // fgets(word, 100, stdin); // Read the word dynamically
+                // word[strcspn(word, " ")] = 0; // remove newline character
+                // StrList_insertAt(list, word, index); // Insert the word into the list at index
+                // break;
             }
         case 3:
             StrList_print(list);
@@ -55,7 +71,8 @@ int main() {
         case 5:
             {
                 fgets(input, sizeof(input), stdin);
-                index = atoi(input);
+                token = strtok(input, "\n");
+                index = atoi(token);
                 StrList_printAt(list, index);
                 break;
         break;
@@ -64,21 +81,30 @@ int main() {
             printf("%d\n", StrList_printLen(list));
             break;
         case 7:
-            getline(&word, &word_size, stdin); // Read the word dynamically
-            word[strcspn(word, " ")] = 0; // remove newline character
-            printf("%d\n", StrList_count(list, word));
-            free(word); // Free dynamically allocated memory
+            fgets(input,sizeof(input),stdin);
+            token = strtok(input,"\n");
+            StrList_count(list,token);
             break;
+            // getline(&word, &word_size, stdin); // Read the word dynamically
+            // word[strcspn(word, " ")] = 0; // remove newline character
+            // printf("%d\n", StrList_count(list, word));
+            // free(word); // Free dynamically allocated memory
+            // break;
         case 8:
-            getline(&word, &word_size, stdin); // Read the word dynamically
-            word[strcspn(word, " ")] = 0; // remove newline character
-            StrList_remove(list, word);
-            free(word); // Free dynamically allocated memory
+            fgets(input,sizeof(input),stdin);
+            token = strtok(input,"\n");
+            StrList_remove(list,token);
             break;
+            // getline(&word, &word_size, stdin); // Read the word dynamically
+            // word[strcspn(word, " ")] = 0; // remove newline character
+            // StrList_remove(list, word);
+            // free(word); // Free dynamically allocated memory
+            // break;
         case 9:
             {
                 fgets(input, sizeof(input), stdin);
-                index = atoi(input);
+                token = strtok(input,"\n");
+                index = atoi(token);
                 StrList_removeAt(list, index);
         break;
             }
