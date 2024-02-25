@@ -8,7 +8,7 @@ int main() {
     char input[100];
     char *token;
     int index;
-    char *word = NULL;
+    char **words;
     size_t word_size = 0;
     int option;
 
@@ -21,19 +21,19 @@ int main() {
     switch(option)
      {
         case 1:
-            {
+            
             fgets(input, sizeof(input), stdin);
             token = strtok(input,"\n");
             int numWords = atoi(token);
-
-            fgets(input,sizeof(input),stdin);
-            token = strtok(input," \t\n,.\"");
-            while(token != NULL)
-            {
-                StrList_insertLast(list,token);
-                token = strtok(NULL, " \t\n,.\"");
-
+            words =(char**)malloc(numWords * sizeof(char*));
+            for(int i=0;i<numWords;i++)
+            {   
+                 fgets(input,sizeof(input),stdin);
+                 words[i] = strtok(input," \t\n,.\"");   
+                 StrList_insertLast(list,words[i]);   
+                 token = strtok(NULL, " \t\n,.\"");
             }
+
             break;
             
             // for (int i = 0; i < numWords; i++)
@@ -47,7 +47,7 @@ int main() {
             // }
         
         case 2:
-            {
+            
                 fgets(input, sizeof(input), stdin);
                 token = strtok(input, "\n");
                 index = atoi(token);
@@ -61,7 +61,7 @@ int main() {
                 // word[strcspn(word, " ")] = 0; // remove newline character
                 // StrList_insertAt(list, word, index); // Insert the word into the list at index
                 // break;
-            }
+            
         case 3:
             StrList_print(list);
             break;
@@ -69,15 +69,12 @@ int main() {
             printf("%zu\n", StrList_size(list));
             break;
         case 5:
-            {
-                fgets(input, sizeof(input), stdin);
-                token = strtok(input, "\n");
-                index = atoi(token);
-                StrList_printAt(list, index);
-                break;
-        break;
-            }
-        case 6:
+            fgets(input, sizeof(input), stdin);
+            token = strtok(input, "\n");
+            index = atoi(token);
+            StrList_printAt(list, index);
+            break;
+         case 6:
             printf("%d\n", StrList_printLen(list));
             break;
         case 7:
@@ -101,13 +98,13 @@ int main() {
             // free(word); // Free dynamically allocated memory
             // break;
         case 9:
-            {
-                fgets(input, sizeof(input), stdin);
-                token = strtok(input,"\n");
-                index = atoi(token);
-                StrList_removeAt(list, index);
-        break;
-            }
+            
+            fgets(input, sizeof(input), stdin);
+            token = strtok(input,"\n");
+            index = atoi(token);
+            StrList_removeAt(list, index);
+            break;
+            
         case 10:
             StrList_reverse(list);
             break;
