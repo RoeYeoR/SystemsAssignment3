@@ -8,7 +8,8 @@ int main() {
     char input[100];
     char *token;
     int index;
-    char word[100];
+    char *word = NULL;
+    size_t word_size = 0;
 
     fgets(input, sizeof(input), stdin);
     token = strtok(input, " \n");
@@ -20,19 +21,21 @@ int main() {
                 token = strtok(NULL, " \n");
                 int numWords = atoi(token);
                 for (int i = 0; i < numWords; i++) {
-                    fgets(word, sizeof(word), stdin);
+                    getline(&word, &word_size, stdin); // Read the word dynamically
                     word[strcspn(word, "\n")] = 0; // remove newline character
-                    StrList_insertLast(list, word);
+                    StrList_insertLast(list, word); // Insert the word into the list
                 }
+                free(word); // Free dynamically allocated memory
                 break;
             }
         case 2:
             {
                 token = strtok(NULL, " \n");
                 index = atoi(token);
-                fgets(word, sizeof(word), stdin);
+                getline(&word, &word_size, stdin); // Read the word dynamically
                 word[strcspn(word, "\n")] = 0; // remove newline character
                 StrList_insertAt(list, word, index);
+                free(word); // Free dynamically allocated memory
                 break;
             }
         case 3:
@@ -52,14 +55,16 @@ int main() {
             printf("%d\n", StrList_printLen(list));
             break;
         case 7:
-            fgets(word, sizeof(word), stdin);
+            getline(&word, &word_size, stdin); // Read the word dynamically
             word[strcspn(word, "\n")] = 0; // remove newline character
             printf("%d\n", StrList_count(list, word));
+            free(word); // Free dynamically allocated memory
             break;
         case 8:
-            fgets(word, sizeof(word), stdin);
+            getline(&word, &word_size, stdin); // Read the word dynamically
             word[strcspn(word, "\n")] = 0; // remove newline character
             StrList_remove(list, word);
+            free(word); // Free dynamically allocated memory
             break;
         case 9:
             {
