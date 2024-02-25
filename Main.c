@@ -26,10 +26,10 @@ int main() {
             int numWords = atoi(input);
 
             for (int i = 0; i < numWords; i++)
-                {
+            {
             word = (char*)malloc(100 * sizeof(char)); // Allocate memory for the word
             fgets(word, 100, stdin); // Read the word dynamically
-            word[strcspn(word, "\n")] = 0; // remove newline character
+            word[strcspn(word, " ")] = 0; // remove newline character
             StrList_insertLast(list, word); // Insert the word into the list
             }
             break;
@@ -42,7 +42,7 @@ int main() {
 
                 word = (char*)malloc(100 * sizeof(char)); // Allocate memory for the word
                 fgets(word, 100, stdin); // Read the word dynamically
-                word[strcspn(word, "\n")] = 0; // remove newline character
+                word[strcspn(word, " ")] = 0; // remove newline character
                 StrList_insertAt(list, word, index); // Insert the word into the list at index
                 break;
             }
@@ -65,13 +65,13 @@ int main() {
             break;
         case 7:
             getline(&word, &word_size, stdin); // Read the word dynamically
-            word[strcspn(word, "\n")] = 0; // remove newline character
+            word[strcspn(word, " ")] = 0; // remove newline character
             printf("%d\n", StrList_count(list, word));
             free(word); // Free dynamically allocated memory
             break;
         case 8:
             getline(&word, &word_size, stdin); // Read the word dynamically
-            word[strcspn(word, "\n")] = 0; // remove newline character
+            word[strcspn(word, " ")] = 0; // remove newline character
             StrList_remove(list, word);
             free(word); // Free dynamically allocated memory
             break;
