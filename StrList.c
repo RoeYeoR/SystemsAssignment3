@@ -84,6 +84,7 @@ void StrList_insertAt(StrList* list, const char* data, int index) {
     current->next = newNode;
 }
 
+
 char* StrList_firstData(const StrList* list) {
     if (list == NULL)
         return NULL;
@@ -92,9 +93,10 @@ char* StrList_firstData(const StrList* list) {
 
 void StrList_print(const StrList* list) {
     while (list != NULL) {
-        printf("%s\n", list->data);
+        printf("%s ", list->data);
         list = list->next;
     }
+    printf("\n");
 }
 
 void StrList_printAt(const StrList* list, int index) {
