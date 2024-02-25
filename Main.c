@@ -10,12 +10,16 @@ int main() {
     int index;
     char *word = NULL;
     size_t word_size = 0;
+    int option;
 
-    fgets(input, sizeof(input), stdin);
-    token = strtok(input, " \n");
-    int option = atoi(token);
+    do
+    {
+        fgets(input, sizeof(input), stdin);
+        token = strtok(input, " \n");
+        option = atoi(token);
 
-    switch(option) {
+    switch(option)
+     {
         case 1:
             {
             fgets(input, sizeof(input), stdin);
@@ -94,11 +98,14 @@ int main() {
             else
                 printf("false\n");
             break;
-        case 0:
-            break;
-        default:
-            printf("Invalid option!\n");
+        
     }
+     } while (option !=0);
+    
+    
+    
+
+     StrList_free(list);
 
     return 0;
 }
