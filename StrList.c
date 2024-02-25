@@ -30,7 +30,7 @@ size_t StrList_size(const StrList* list) {
     return size;
 }
 
-StrList* StrList_insertLast(StrList* list, const char* data) {
+void StrList_insertLast(StrList* list, const char* data) {
     StrList* newNode = (StrList*)malloc(sizeof(StrList));
     if (newNode == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
@@ -40,7 +40,8 @@ StrList* StrList_insertLast(StrList* list, const char* data) {
     newNode->next = NULL;
 
     if (list == NULL) {
-        return newNode;
+        list = newNode;
+        return;
     }
 
     StrList* current = list;
@@ -48,12 +49,11 @@ StrList* StrList_insertLast(StrList* list, const char* data) {
         current = current->next;
     }
     current->next = newNode;
-    return list;
 }
 
-StrList* StrList_insertAt(StrList* list, const char* data, int index) {
+void StrList_insertAt(StrList* list, const char* data, int index) {
     if (index < 0)
-        return list;
+        return;
 
     StrList* newNode = (StrList*)malloc(sizeof(StrList));
     if (newNode == NULL) {
@@ -65,7 +65,8 @@ StrList* StrList_insertAt(StrList* list, const char* data, int index) {
 
     if (index == 0) {
         newNode->next = list;
-        return newNode;
+        list = newNode;
+        return;
     }
 
     StrList* current = list;
@@ -77,11 +78,10 @@ StrList* StrList_insertAt(StrList* list, const char* data, int index) {
     if (current == NULL) {
         free(newNode->data);
         free(newNode);
-        return list;
+        return;
     }
     newNode->next = current->next;
     current->next = newNode;
-    return list;
 }
 
 char* StrList_firstData(const StrList* list) {
@@ -128,7 +128,7 @@ int StrList_count(StrList* list, const char* data) {
     return count;
 }
 
-StrList* StrList_remove(StrList* list, const char* data) {
+void StrList_remove(StrList* list, const char* data) {
     StrList* current = list;
     StrList* prev = NULL;
 
@@ -147,12 +147,11 @@ StrList* StrList_remove(StrList* list, const char* data) {
             current = current->next;
         }
     }
-    return list;
 }
 
-StrList* StrList_removeAt(StrList* list, int index) {
+void StrList_removeAt(StrList* list, int index) {
     if (index < 0)
-        return list;
+        return;
 
     StrList* current = list;
     StrList* prev = NULL;
@@ -165,7 +164,7 @@ StrList* StrList_removeAt(StrList* list, int index) {
     }
 
     if (current == NULL)
-        return list;
+        return;
 
     if (prev == NULL) {
         list = current->next;
@@ -175,7 +174,6 @@ StrList* StrList_removeAt(StrList* list, int index) {
 
     free(current->data);
     free(current);
-    return list;
 }
 
 int StrList_isEqual(const StrList* list1, const StrList* list2) {
@@ -191,13 +189,13 @@ int StrList_isEqual(const StrList* list1, const StrList* list2) {
 StrList* StrList_clone(const StrList* list) {
     StrList* clone = NULL;
     while (list != NULL) {
-        clone = StrList_insertLast(clone, list->data);
+        StrList_insertLast(clone, list->data);
         list = list->next;
     }
     return clone;
 }
 
-StrList* StrList_reverse(StrList* list) {
+void StrList_reverse(StrList* list) {
     StrList* prev = NULL;
     StrList* current = list;
     StrList* next = NULL;
@@ -209,14 +207,14 @@ StrList* StrList_reverse(StrList* list) {
         current = next;
     }
 
-    return prev;
+    list = prev;
 }
 
 static int compare_strings(const void* a, const void* b) {
     return strcmp(*(const char**)a, *(const char**)b);
 }
 
-StrList* StrList_sort(StrList* list) {
+void StrList_sort(StrList* list) {
     int size = StrList_size(list);
     char** array = (char**)malloc(size * sizeof(char*));
     if (array == NULL) {
@@ -239,7 +237,6 @@ StrList* StrList_sort(StrList* list) {
     }
 
     free(array);
-    return list;
 }
 
 int StrList_isSorted(StrList* list) {
