@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall 
 SRCS = Main.c StrList.c
 OBJS = $(SRCS:.c=.o)
 TARGET = StrList
