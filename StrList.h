@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdlib.h>
+
 
 /********************************************************************************
  *
@@ -18,6 +18,7 @@
  */
 struct _StrList;
 typedef struct _StrList StrList;
+
 
 /*
  * Allocates a new empty StrList.

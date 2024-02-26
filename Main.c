@@ -1,134 +1,116 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "StrList.h"
 
+
+
+
 int main() {
-    StrList* list = NULL;
-    char input[100];
-    char *token;
-    int index;
-    char **words;
-    size_t word_size = 0;
-    int option;
+    StrList* myList = StrList_alloc();
+    int choice;
+    char str[100]; // Assuming maximum string length is 100
 
-    do
-    {
-        fgets(input, sizeof(input), stdin);
-        token = strtok(input, "\n");
-        option = atoi(token);
-
-    switch(option)
-     {
-        case 1:
-            
-            fgets(input, sizeof(input), stdin);
-            token = strtok(input,"\n");
-            int numWords = atoi(token);
-            words =(char**)malloc(numWords * sizeof(char*));
-            for(int i=0;i<numWords;i++)
-            {   
-                 fgets(input,sizeof(input),stdin);
-                 words[i] = strtok(input," \t\n,.\"");   
-                 StrList_insertLast(list,words[i]);   
-                 token = strtok(NULL, " \t\n,.\"");
-            }
-
-            break;
-            
-            // for (int i = 0; i < numWords; i++)
-            // {
-            // fgets(token,sizeof(token),stdin);
-            // token = strtok(input," ");
-            // StrList_insertLast(list, token); // Insert the word into the list
-            // token = strtok(NULL," "); 
-            // }
-            // break;
-            // }
+    do {
         
-        case 2:
-            
-                fgets(input, sizeof(input), stdin);
-                token = strtok(input, "\n");
-                index = atoi(token);
+        scanf("%d", &choice);
 
-                fgets(input,sizeof(input),stdin);
-                token = strtok(input,"\n");
-                StrList_insertAt(list,token,index);
+        switch (choice) {
+            case 1:
+                
+                int numWords;
+                scanf("%d", &numWords);
+               
+                for (int i = 0; i < numWords; i++) 
+                {
+                    scanf("%s", str);
+                    StrList_insertLast(myList, str);
+                }
+               
                 break;
-                // word = (char*)malloc(100 * sizeof(char)); // Allocate memory for the word
-                // fgets(word, 100, stdin); // Read the word dynamically
-                // word[strcspn(word, " ")] = 0; // remove newline character
-                // StrList_insertAt(list, word, index); // Insert the word into the list at index
-                // break;
-            
-        case 3:
-            StrList_print(list);
-            break;
-        case 4:
-            printf("%zu\n", StrList_size(list));
-            break;
-        case 5:
-            fgets(input, sizeof(input), stdin);
-            token = strtok(input, "\n");
-            index = atoi(token);
-            StrList_printAt(list, index);
-            break;
-         case 6:
-            printf("%d\n", StrList_printLen(list));
-            break;
-        case 7:
-            fgets(input,sizeof(input),stdin);
-            token = strtok(input,"\n");
-            StrList_count(list,token);
-            break;
-            // getline(&word, &word_size, stdin); // Read the word dynamically
-            // word[strcspn(word, " ")] = 0; // remove newline character
-            // printf("%d\n", StrList_count(list, word));
-            // free(word); // Free dynamically allocated memory
-            // break;
-        case 8:
-            fgets(input,sizeof(input),stdin);
-            token = strtok(input,"\n");
-            StrList_remove(list,token);
-            break;
-            // getline(&word, &word_size, stdin); // Read the word dynamically
-            // word[strcspn(word, " ")] = 0; // remove newline character
-            // StrList_remove(list, word);
-            // free(word); // Free dynamically allocated memory
-            // break;
-        case 9:
-            
-            fgets(input, sizeof(input), stdin);
-            token = strtok(input,"\n");
-            index = atoi(token);
-            StrList_removeAt(list, index);
-            break;
-            
-        case 10:
-            StrList_reverse(list);
-            break;
-        case 11:
-            StrList_free(list);
-            list = NULL;
-            break;
-        case 12:
-            StrList_sort(list);
-            break;
-        case 13:
-            if (StrList_isSorted(list))
-                printf("true\n");
-            else
-                printf("false\n");
-            break;
-        
-    }
-     } while (option !=0);
-    
-    
-    
 
-     StrList_free(list);
+            case 2:
+               
+                int index;
+                scanf("%d", &index);
+                
+                scanf("%s", str);
+                StrList_insertAt(myList, str, index);
+               
+                break;
 
+            case 3:
+              
+                StrList_print(myList);
+                printf("\n");
+                break;
+
+            case 4:
+                printf("%zu\n", StrList_size(myList));
+                break;
+
+            case 5:
+                
+                scanf("%d", &index);
+               
+                StrList_printAt(myList, index);
+                printf("\n");
+                break;
+
+            case 6:
+                printf("%d\n", StrList_printLen(myList));
+                break;
+
+            case 7:
+               
+                scanf("%s", str);
+                printf("%d\n",StrList_count(myList, str));
+                break;
+
+            case 8:
+                
+                scanf("%s", str);
+                StrList_remove(myList, str);
+              
+                break;
+
+            case 9:
+               
+                scanf("%d", &index);
+                StrList_removeAt(myList, index);
+               
+                break;
+
+            case 10:
+                StrList_reverse(myList);
+               
+                break;
+
+            case 11:
+                StrList_free(myList);
+                myList = StrList_alloc();
+               
+                break;
+
+            case 12:
+                StrList_sort(myList);
+              
+                break;
+
+            case 13:
+                if (StrList_isSorted(myList))
+                    printf("true\n");
+                else
+                    printf("false\n");
+                break;
+
+            case 0:
+               
+                break;
+
+        }
+
+    } while (choice != 0);
+
+    StrList_free(myList);
     return 0;
 }
