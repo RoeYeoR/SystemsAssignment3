@@ -130,11 +130,12 @@ void StrList_print(const StrList* StrList)
     if (StrList == NULL || StrList->_head == NULL)
         return;
     const Node* p = StrList->_head;
-    while (p)
+    while (p->_next)
     {
         printf("%s ", p->_data);
         p = p->_next;
     }
+    printf("%s", p->_data);
 }
 
 void StrList_printAt(const StrList* StrList, int index)
@@ -147,7 +148,7 @@ void StrList_printAt(const StrList* StrList, int index)
     {
         if (i == index)
         {
-            printf("%s ", p->_data);
+            printf("%s", p->_data);
             break;
         }
         p = p->_next;
